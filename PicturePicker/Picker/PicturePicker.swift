@@ -13,12 +13,26 @@ class PicturePicker: NSObject {
     static let shared = PicturePicker()
     
     typealias ChoosePhotosHandle = ([UIImage]) -> Void
-    private(set) var callbackAfterFinish: ChoosePhotosHandle?
+    fileprivate(set) var callbackAfterFinish: ChoosePhotosHandle?
     
-    private(set) var maxPhotos: Int = 0
+    fileprivate(set) var maxPhotos: Int = 0
     
-    private(set) lazy var choosedAssets = [PHAsset]()
-//    private(set) lazy var choosedPhotos = [UIImage]()
+    /// 获取当前已选择图片的数目
+    var currentNumber: Int {
+        get {
+            return choosedAssets.count
+        }
+    }
+    
+    /// 当前是否已经选满了
+    var isMax: Bool {
+        get {
+            return choosedAssets.count == maxPhotos
+        }
+    }
+    
+    fileprivate(set) lazy var choosedAssets = [PHAsset]()
+    fileprivate(set) lazy var fetchOutputImages = [UIImage]()
     
     private override init() {
         super.init()
@@ -29,46 +43,32 @@ class PicturePicker: NSObject {
     /// - Parameters:
     ///   - number: 选择图片的最大数目
     ///   - handle: 回调处理
-    func startChoosePhotos(with number: Int, completion handle: ChoosePhotosHandle) {
+    func startChoosePhotos(with number: Int, completion handle: @escaping ChoosePhotosHandle) {
         
         guard number > 0 && number < 100 else {
             fatalError("choosePhotos with unexpected number.")
         }
         
+        resetPicker()
+        
         maxPhotos = number
+        callbackAfterFinish = handle
         
-        let albumVC = AlbumTableViewController()
-        let naviVC = UINavigationController(rootViewController: albumVC)
-        
-        UIApplication.shared.topMostViewController()?.present(naviVC, animated: true, completion: nil)
+        presentPicker()
     }
-    
     
     /// 终止选择图片
     ///
-    /// - Parameter isCancel: 是否是取消
-    func endChoose(isCancel: Bool) {
-        if isCancel {
-            choosedAssets.removeAll()
-            maxPhotos = 0
-            callbackAfterFinish = nil
+    /// - Parameter isFinish: 是否是完成了，false表示取消
+    func endChoose(isFinish: Bool) {
+        if isFinish {
+            for asset in choosedAssets {
+                PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .default, options: nil, resultHandler: { (img, _) in
+                    self.callbackAfterFetch(img: img!)
+                })
+            }
         } else {
-            // TODO: 完成
-        }
-    }
-    
-    
-    /// 获取当前已选择图片的数目
-    var currentNumber: Int {
-        get {
-            return choosedAssets.count
-        }
-    }
- 
-    /// 当前是否已经选满了
-    var isMax: Bool {
-        get {
-            return choosedAssets.count == maxPhotos
+            resetPicker()
         }
     }
     
@@ -104,5 +104,36 @@ class PicturePicker: NSObject {
             fatalError("错误！")
         }
     }
-        
+    
+    /// 重置 PicturePicker 参数
+    func resetPicker() {
+        choosedAssets.removeAll()
+        maxPhotos = 0
+        callbackAfterFinish = nil
+        fetchOutputImages.removeAll()
+    }
 }
+
+private extension PicturePicker {
+    func callbackAfterFetch(img: UIImage) {
+        fetchOutputImages.append(img)
+        if fetchOutputImages.count == choosedAssets.count {
+            callbackAfterFinish?(fetchOutputImages)
+        }
+    }
+    
+    func presentPicker() {
+        let albumVC = AlbumTableViewController()
+        let naviVC = UINavigationController(rootViewController: albumVC)
+        topMostViewController()?.present(naviVC, animated: true, completion: nil)
+    }
+    
+    func topMostViewController() -> UIViewController? {
+        var topController = UIApplication.shared.keyWindow?.rootViewController
+        while topController?.presentedViewController != nil {
+            topController = topController?.presentedViewController
+        }
+        return topController
+    }
+}
+

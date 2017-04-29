@@ -32,7 +32,7 @@
 		629EF23E1EAF37DE00D21B49 /* PickerConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629EF23D1EAF37DE00D21B49 /* PickerConstant.swift */; };
 		62BCD67E1EB19D7500039974 /* PagingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BCD67C1EB19D7500039974 /* PagingScrollView.swift */; };
 		62BCD67F1EB19D7500039974 /* ZoomingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BCD67D1EB19D7500039974 /* ZoomingScrollView.swift */; };
-		62BCD6811EB218E400039974 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BCD6801EB218E400039974 /* Photo.swift */; };
+		79EC66791EB49E72000643D6 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EC66781EB49E72000643D6 /* Photo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,7 +63,7 @@
 		629EF23D1EAF37DE00D21B49 /* PickerConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerConstant.swift; sourceTree = "<group>"; };
 		62BCD67C1EB19D7500039974 /* PagingScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingScrollView.swift; path = PicturePicker/Browser/PagingScrollView.swift; sourceTree = "<group>"; };
 		62BCD67D1EB19D7500039974 /* ZoomingScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZoomingScrollView.swift; path = PicturePicker/Browser/ZoomingScrollView.swift; sourceTree = "<group>"; };
-		62BCD6801EB218E400039974 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		79EC66781EB49E72000643D6 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Photo.swift; path = PicturePicker/Browser/Photo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +92,7 @@
 		623949A71EB1976100DE90A7 /* Browser */ = {
 			isa = PBXGroup;
 			children = (
-				62BCD6801EB218E400039974 /* Photo.swift */,
+				79EC66781EB49E72000643D6 /* Photo.swift */,
 				623949BA1EB19A4700DE90A7 /* BrowserViewController.swift */,
 				62BCD67C1EB19D7500039974 /* PagingScrollView.swift */,
 				62BCD67D1EB19D7500039974 /* ZoomingScrollView.swift */,
@@ -138,9 +138,9 @@
 			children = (
 				629EF2251EAF24C900D21B49 /* AppDelegate.swift */,
 				629EF2271EAF24C900D21B49 /* ViewController.swift */,
+				623949AB1EB199DA00DE90A7 /* PicturePicker.swift */,
 				623949A51EB0AAC600DE90A7 /* PickerConfig.swift */,
 				629EF23D1EAF37DE00D21B49 /* PickerConstant.swift */,
-				623949AB1EB199DA00DE90A7 /* PicturePicker.swift */,
 				623949A81EB1979A00DE90A7 /* Picker */,
 				623949A71EB1976100DE90A7 /* Browser */,
 				629EF2291EAF24C900D21B49 /* Main.storyboard */,
@@ -184,7 +184,7 @@
 				TargetAttributes = {
 					629EF2211EAF24C900D21B49 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = W6SKYUXYNG;
+						DevelopmentTeam = MG4GRZ9TJ6;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -242,7 +242,7 @@
 				629EF23E1EAF37DE00D21B49 /* PickerConstant.swift in Sources */,
 				62BCD67F1EB19D7500039974 /* ZoomingScrollView.swift in Sources */,
 				629EF2261EAF24C900D21B49 /* AppDelegate.swift in Sources */,
-				62BCD6811EB218E400039974 /* Photo.swift in Sources */,
+				79EC66791EB49E72000643D6 /* Photo.swift in Sources */,
 				623949B11EB199DA00DE90A7 /* AlbumTableViewCell.swift in Sources */,
 				623949B41EB199DA00DE90A7 /* PhotoToolbar.swift in Sources */,
 				623949B21EB199DA00DE90A7 /* AlbumTableViewController.swift in Sources */,
@@ -370,11 +370,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = W6SKYUXYNG;
+				DEVELOPMENT_TEAM = MG4GRZ9TJ6;
 				INFOPLIST_FILE = PicturePicker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.richard.test.PicturePicker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.richard.PicturePicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -384,11 +384,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = W6SKYUXYNG;
+				DEVELOPMENT_TEAM = MG4GRZ9TJ6;
 				INFOPLIST_FILE = PicturePicker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.richard.test.PicturePicker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.richard.PicturePicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

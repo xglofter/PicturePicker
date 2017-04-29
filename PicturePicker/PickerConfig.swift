@@ -29,7 +29,6 @@ struct PickerConfig {
     static var browserShowVerticalScrollIndicator: Bool = true
     
     static var browserShowToolbar: Bool = true
-    static var browserShowStatusbar: Bool = false
     
     static var browserEnableZoomBlackArea: Bool = true
 }

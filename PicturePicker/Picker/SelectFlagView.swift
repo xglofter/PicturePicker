@@ -1,6 +1,6 @@
 //
 //  SelectFlagView.swift
-//  Stitcher
+//  PicturePicker
 //
 //  Created by Richard on 2017/4/21.
 //  Copyright © 2017年 Richard. All rights reserved.
@@ -48,4 +48,5 @@ class SelectFlagView: UILabel {
         
         layer.cornerRadius = layer.frame.width * 0.5
     }
+    
 }

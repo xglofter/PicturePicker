@@ -21,18 +21,4 @@ struct PickerConstant {
     static var screenRatio: CGFloat {
         return screenWidth / screenHeight
     }
-    
-    
-}
-
-// TODO: delete
-
-extension UIApplication {
-    func topMostViewController() -> UIViewController? {
-        var topController = UIApplication.shared.keyWindow?.rootViewController
-        while topController?.presentedViewController != nil {
-            topController = topController?.presentedViewController
-        }
-        return topController
-    }
 }

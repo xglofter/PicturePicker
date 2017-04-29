@@ -1,6 +1,6 @@
 //
 //  PhotosGridViewController.swift
-//  Stitcher
+//  PicturePicker
 //
 //  Created by Richard on 2017/4/20.
 //  Copyright © 2017年 Richard. All rights reserved.
@@ -16,7 +16,7 @@ class PhotosGridViewController: UIViewController {
     var collectionView: UICollectionView!
     var toolBar: PhotoToolbar!
     
-    let numberOneRow: CGFloat = 4  // 每行放置4个Cell
+    let numberOneRow: CGFloat = 4  // 每行放置4个Cell, TODO：改为固定值，或者旋转以后可以调整
     let spaceOnCell: CGFloat = 4
     
     /// 带缓存的图片管理对象
@@ -27,6 +27,7 @@ class PhotosGridViewController: UIViewController {
     // MARK: - Lifecycle
     
     deinit {
+        print("deinit PhotosGridViewController")
         self.resetCachedAssets()
     }
     
@@ -56,7 +57,8 @@ class PhotosGridViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.checkBarShouldHidden()
+        checkBarShouldHidden()
+        changeVisibleFlag()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -72,9 +74,7 @@ extension PhotosGridViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        // storyboard里设计的单元格
         let identify = PhotoCollectionViewCell.cellIdentity
-        // 获取设计的单元格，不需要再动态添加界面元素
         let cell = self.collectionView!.dequeueReusableCell(withReuseIdentifier: identify, for: indexPath) as! PhotoCollectionViewCell
         
         let asset = self.photoAssets[indexPath.row]
@@ -147,7 +147,9 @@ extension PhotosGridViewController: PhotoToolbarDelegate {
     }
     
     func touchFinishAction() {
-        // TODO
+        self.dismiss(animated: true, completion: {
+            PicturePicker.shared.endChoose(isFinish: true)
+        })
     }
 }
 
@@ -258,7 +260,7 @@ private extension PhotosGridViewController {
         }
         let browser = BrowserViewController(photos: photoArray)
         browser.initializePage(at: index)
-        self.present(browser, animated: true, completion: nil)
+        navigationController?.pushViewController(browser, animated: true)
     }
     
     func alert(with message: String) {
@@ -272,7 +274,7 @@ private extension PhotosGridViewController {
     
     @objc func onDismissAction() {
         self.dismiss(animated: true, completion: {
-            PicturePicker.shared.endChoose(isCancel: true)
+            PicturePicker.shared.endChoose(isFinish: false)
         })
     }
 }

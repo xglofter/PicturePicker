@@ -2,7 +2,7 @@
 //  zoomingScrollView.swift
 //  PicturePicker
 //
-//  Created by guang xu on 2017/4/25.
+//  Created by Richard on 2017/4/25.
 //  Copyright © 2017年 Richard. All rights reserved.
 //
 
@@ -149,6 +149,9 @@ internal extension ZoomingScrollView {
             return
         }
         setImage(image: imageToSet)
+        
+        let number = PicturePicker.shared.getPhotoNumber(with: photo.asset.localIdentifier)
+        photoBrowser?.setFlag(isSelected: (number != 0), with: number)
     }
     
     func displayOriginImage() {
@@ -219,26 +222,21 @@ extension ZoomingScrollView: TapImageViewDelegate {
 
 private extension ZoomingScrollView {
     func setupWidgets() {
-        
         backgroundColor = .clear
         delegate = self
         showsHorizontalScrollIndicator = PickerConfig.browserShowHorizontalScrollIndicator
         showsVerticalScrollIndicator = PickerConfig.browserShowVerticalScrollIndicator
         decelerationRate = UIScrollViewDecelerationRateFast
-//        autoresizingMask = [.flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin, .flexibleLeftMargin]
         
         tapView = TapView(frame: bounds)
         tapView.backgroundColor = .clear
-//        tapView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         tapView.delegate = self
         addSubview(tapView)
         
         photoImageView = TapImageView(frame: frame)
-//        photoImageView.contentMode = .bottom
         photoImageView.backgroundColor = .clear
         photoImageView.delegate = self
         addSubview(photoImageView)
-        
     }
     
     func handleDoubleTap(touchPoint: CGPoint) {
@@ -325,8 +323,3 @@ private extension ZoomingScrollView {
         displayOriginImage()
     }
 }
-
-
-
-
-

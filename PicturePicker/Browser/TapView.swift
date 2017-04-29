@@ -2,7 +2,7 @@
 //  TapView.swift
 //  PicturePicker
 //
-//  Created by guang xu on 2017/4/25.
+//  Created by Richard on 2017/4/25.
 //  Copyright © 2017年 Richard. All rights reserved.
 //
 

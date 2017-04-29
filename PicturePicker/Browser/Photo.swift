@@ -2,7 +2,7 @@
 //  Photo.swift
 //  PicturePicker
 //
-//  Created by guang xu on 2017/4/27.
+//  Created by Richard on 2017/4/27.
 //  Copyright © 2017年 Richard. All rights reserved.
 //
 
@@ -49,10 +49,8 @@ class Photo: NSObject, PhotoProtocol {
         let scale = PickerConstant.screenScale
         let size = CGSize(width: 80 * scale, height: 80 * scale)
 
-        print("ddd", asset.pixelWidth, asset.pixelHeight)
         PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: .default, options: nil) { (image, _) in
             self.underlyingImage = image
-            print("sssss", image!.size)
             completion()
         }
     }
@@ -69,7 +67,6 @@ class Photo: NSObject, PhotoProtocol {
         
         PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: .default, options: options) { (image, _) in
             self.originImage = image
-            print("wwwwwwww", image!.size)
             completion()
         }
     }

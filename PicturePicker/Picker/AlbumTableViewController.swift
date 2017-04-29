@@ -1,6 +1,6 @@
 //
 //  AlbumTableViewController.swift
-//  Stitcher
+//  PicturePicker
 //
 //  Created by Richard on 2017/4/20.
 //  Copyright © 2017年 Richard. All rights reserved.
@@ -107,7 +107,7 @@ private extension AlbumTableViewController {
         print("onDismissAction")
         
         self.dismiss(animated: true, completion: {
-            PicturePicker.shared.endChoose(isCancel: true)
+            PicturePicker.shared.endChoose(isFinish: false)
         })
     }
     

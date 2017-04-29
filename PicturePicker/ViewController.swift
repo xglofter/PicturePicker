@@ -14,7 +14,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-
     }
 
     @IBAction func enter(_ sender: Any) {
@@ -22,25 +21,16 @@ class ViewController: UIViewController {
         PicturePicker.shared.startChoosePhotos(with: 5) { (images) in
             print("---------")
             print(images)
+            print(images.count)
             print("---------")
+            var index = 0
+            for img in images {
+                let imageView = UIImageView(image: img)
+                imageView.frame.origin = CGPoint(x: 10 + index * 100, y: 10 + index * 100)
+                self.view.addSubview(imageView)
+                index += 1
+            }
         }
-        
-//        var images = [Photo]()
-//        let photo1 = Photo(image: UIImage(named: "a.jpg")!)
-//        images.append(photo1)
-//        let photo2 = Photo(image: UIImage(named: "b.png")!)
-//        images.append(photo2)
-//        let photo3 = Photo(image: UIImage(named: "c.jpg")!)
-//        images.append(photo3)
-//        let photo4 = Photo(image: UIImage(named: "d.jpg")!)
-//        images.append(photo4)
-//        let photo5 = Photo(image: UIImage(named: "e.jpg")!)
-//        images.append(photo5)
-//        
-//        let browser = BrowserViewController(photos: images)
-//        browser.initializePage(at: 0)
-//        self.present(browser, animated: true, completion: nil)
-        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
