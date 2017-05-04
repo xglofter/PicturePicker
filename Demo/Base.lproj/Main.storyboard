@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gr5-0P-1XJ">
+                                <rect key="frame" x="150" y="70" width="74" height="30"/>
+                                <state key="normal" title="Go To Pick"/>
+                                <connections>
+                                    <action selector="onGoToPick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fdx-BA-aFk"/>
+                                </connections>
+                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ot4-iH-AVX">
+                                <rect key="frame" x="36" y="150" width="303" height="467"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kGc-ju-9L8">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ID_Cell" reuseIdentifier="ID_Cell" id="Ifn-dc-Ugm" customClass="DemoCollectionViewCell" customModule="Demo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Pu-mp-o7h">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="5Pu-mp-o7h" firstAttribute="centerX" secondItem="Ifn-dc-Ugm" secondAttribute="centerX" id="FMr-p8-eH6"/>
+                                            <constraint firstItem="5Pu-mp-o7h" firstAttribute="centerY" secondItem="Ifn-dc-Ugm" secondAttribute="centerY" id="S9p-La-fs9"/>
+                                            <constraint firstItem="5Pu-mp-o7h" firstAttribute="width" secondItem="Ifn-dc-Ugm" secondAttribute="width" id="cc0-5Q-tLP"/>
+                                            <constraint firstItem="5Pu-mp-o7h" firstAttribute="height" secondItem="Ifn-dc-Ugm" secondAttribute="height" id="ygY-Pj-fYf"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imgView" destination="5Pu-mp-o7h" id="9pO-mq-3bC"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Lmd-aO-NqU"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="3mA-Yy-zFB"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="gr5-0P-1XJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="9Tq-BX-v9a"/>
+                            <constraint firstItem="gr5-0P-1XJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="C7M-C7-hGY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ot4-iH-AVX" secondAttribute="trailing" constant="20" id="aXW-eT-kLz"/>
+                            <constraint firstItem="Ot4-iH-AVX" firstAttribute="top" secondItem="gr5-0P-1XJ" secondAttribute="bottom" constant="50" id="i4i-oq-tz4"/>
+                            <constraint firstItem="Ot4-iH-AVX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="ku2-kp-q4t"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Ot4-iH-AVX" secondAttribute="bottom" constant="50" id="paZ-pn-vyu"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectView" destination="Ot4-iH-AVX" id="o8u-Xr-MNy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="24.800000000000001" y="35.532233883058474"/>
+        </scene>
+    </scenes>
+</document>
