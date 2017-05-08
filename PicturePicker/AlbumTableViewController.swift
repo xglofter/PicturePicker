@@ -32,8 +32,15 @@ class AlbumTableViewController: UITableViewController {
 
         setup()
         fetchAlbums()
+        
+        // 监测系统相册增加
+        PHPhotoLibrary.shared().register(self)
+        
+        // 注册cell
+        tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.cellIdentity)
+        tableView.separatorStyle = .none
     }
-
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -75,12 +82,10 @@ class AlbumTableViewController: UITableViewController {
         
         switch AlbumSection.init(rawValue: indexPath.section)! {
         case .allPhotos:
-            print("")
             let gridVC = PhotosGridViewController(with: allPhotos)
             gridVC.title = "所有照片"
             self.navigationController?.pushViewController(gridVC, animated: true)
         case .otherAlbumPhotos:
-            print("")
             let gridVC = PhotosGridViewController(with: otherAlbumPhotos[indexPath.row])
             gridVC.title = otherAlbumTitles[indexPath.row]
             self.navigationController?.pushViewController(gridVC, animated: true)
@@ -88,8 +93,20 @@ class AlbumTableViewController: UITableViewController {
     }
 }
 
+// MARK: - PHPhotoLibraryChangeObserver
 
-// MARK: Private Function
+extension AlbumTableViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        DispatchQueue.main.sync {
+            if let _ = changeInstance.changeDetails(for: allPhotos) {
+                fetchAlbums()
+                tableView?.reloadData()
+            }
+        }
+    }
+}
+
+// MARK: - Private Function
 
 private extension AlbumTableViewController {
     func setup() {
@@ -102,9 +119,7 @@ private extension AlbumTableViewController {
         navigationItem.rightBarButtonItem = barItem
     }
     
-    @objc func onDismissAction() {
-        print("onDismissAction")
-        
+    @objc func onDismissAction() {        
         self.dismiss(animated: true, completion: {
             PickerManager.shared.endChoose(isFinish: false)
         })
@@ -119,6 +134,9 @@ private extension AlbumTableViewController {
         
         let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: nil)
         let userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
+        
+        otherAlbumTitles.removeAll()
+        otherAlbumPhotos.removeAll()
         
         func getAlbumNotEmpty(from albums: PHFetchResult<PHAssetCollection>) {
             let photoOptions = PHFetchOptions()
@@ -135,14 +153,6 @@ private extension AlbumTableViewController {
         getAlbumNotEmpty(from: smartAlbums)
         getAlbumNotEmpty(from: userCollections as! PHFetchResult<PHAssetCollection>)
         print(otherAlbumPhotos.count)
-        
-        
-        // 监测系统相册增加
-        // PHPhotoLibrary.shared().register(self) // TODO
-        
-        // 注册cell
-        tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.cellIdentity)
-        tableView.separatorStyle = .none
     }
 }
 

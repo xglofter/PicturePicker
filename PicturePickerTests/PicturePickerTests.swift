@@ -24,13 +24,6 @@ class PicturePickerTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        
-        PickerManager.shared.startChoosePhotos(with: 5) { (images) in
-            print("---------")
-            print(images)
-            print(images.count)
-            print("---------")
-        }
     }
     
     func testPerformanceExample() {

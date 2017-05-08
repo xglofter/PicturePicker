@@ -131,14 +131,11 @@ internal extension ZoomingScrollView {
         
         var imageToSet: UIImage!
         if photo.originImage != nil {
-            print("111")
             imageToSet = photo.originImage
         } else if photo.underlyingImage != nil {
-            print("222")
             imageToSet = photo.underlyingImage
             startFetchOriginImage()
         } else {
-            print("333")
             photo.fetchUnderlyingImage { [weak self] _ in
                 if let thePhotoImage = self?.photo?.underlyingImage {
                     self?.setImage(image: thePhotoImage)

@@ -111,7 +111,6 @@ private extension PhotoCollectionViewCell {
     }
     
     @objc func onTapFlagAction() {
-        print("0000000000000")
         flagCallback()
     }
 }

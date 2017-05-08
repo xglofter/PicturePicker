@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     @IBAction func onGoToPick(_ sender: Any) {
         
         PickerManager.shared.startChoosePhotos(with: 5) { (images) in

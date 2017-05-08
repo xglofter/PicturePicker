@@ -48,11 +48,27 @@ public class PickerManager: NSObject {
         }
         
         resetPicker()
-        
         maxPhotos = number
         callbackAfterFinish = handle
         
-        presentPicker()
+        let library: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        if library == .notDetermined {
+            PHPhotoLibrary.requestAuthorization { (status) in
+                print("permission", status.rawValue)
+                if status == PHAuthorizationStatus.authorized {
+                    DispatchQueue.main.async { [weak self] _ in
+                        self?.presentPicker()
+                    }
+                }
+            }
+        } else if library == .denied || library == .restricted {
+            let alert = UIAlertController(title: nil, message: "需要访问您的相册，请前往设置打开权限", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "确定", style: .default, handler: nil)
+            alert.addAction(okAction)
+            topMostViewController()?.present(alert, animated: true, completion: nil)
+        } else {
+            presentPicker()
+        }
     }
     
     /// 终止选择图片

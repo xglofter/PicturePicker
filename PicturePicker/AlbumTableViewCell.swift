@@ -55,7 +55,6 @@ internal extension AlbumTableViewCell {
         let defaultSize = CGSize(width: scale * imgWidth, height: scale * imgHeight)
         PHCachingImageManager.default().requestImage(for: asset!, targetSize: defaultSize, contentMode: .aspectFill, options: nil, resultHandler: { (img, _) in
             self.previewImageView.image = img
-            print("defaultsize", img!.size)
         })
     }
     
