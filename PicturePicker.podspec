@@ -11,17 +11,13 @@ Pod::Spec.new do |s|
   s.name         = "PicturePicker"
   s.version      = "0.0.1"
   s.summary      = "a custom picture picker."
-  s.description  = <<-DESC
-                     a picture picker on ios.
-                   DESC
   s.homepage     = "https://github.com/xglofter/PicturePicker"
   s.screenshots  = "https://github.com/xglofter/PicturePicker/screenshot.gif"
-  s.license      = "MIT"
-  s.author             = { "Richard" => "269243666@qq.com" }
+  s.license = { :type => 'MIT', :file => 'LICENSE' }
+  s.author       = { "Richard" => "269243666@qq.com" }
   s.platform     = :ios, "9.0"
   s.source       = { :git => "https://github.com/xglofter/PicturePicker.git" }
-  s.source_files  = "PicturePicker/*.{h,swift}"
-  s.module_name = "PicturePicker"
+  s.source_files = "PicturePicker/*.{h,swift}"
+  s.module_name  = "PicturePicker"
   s.requires_arc = true
-
 end
