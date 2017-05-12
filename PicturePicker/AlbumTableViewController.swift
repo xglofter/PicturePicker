@@ -25,6 +25,8 @@ class AlbumTableViewController: UITableViewController {
     fileprivate(set) lazy var otherAlbumTitles = [String]()
     fileprivate(set) lazy var otherAlbumPhotos = [PHFetchResult<PHAsset>]()
     
+    fileprivate(set) var isFirstEnter = true
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -39,6 +41,17 @@ class AlbumTableViewController: UITableViewController {
         // 注册cell
         tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.cellIdentity)
         tableView.separatorStyle = .none
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if isFirstEnter {
+            isFirstEnter = false
+            let gridVC = PhotosGridViewController(with: allPhotos)
+            gridVC.title = "所有照片"
+            self.navigationController?.pushViewController(gridVC, animated: true)
+        }
     }
     
     // MARK: - Table view data source

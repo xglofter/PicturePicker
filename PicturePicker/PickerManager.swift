@@ -141,7 +141,7 @@ private extension PickerManager {
     func presentPicker() {
         let albumVC = AlbumTableViewController()
         let naviVC = UINavigationController(rootViewController: albumVC)
-        topMostViewController()?.present(naviVC, animated: true, completion: nil)
+        topMostViewController()?.present(naviVC, animated: false, completion: nil)
     }
     
     func topMostViewController() -> UIViewController? {
