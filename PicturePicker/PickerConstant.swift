@@ -7,17 +7,17 @@
 
 import UIKit
 
-struct PickerConstant {
-    static var screenHeight: CGFloat {
+public struct PickerConstant {
+    public static var screenHeight: CGFloat {
         return UIScreen.main.bounds.height
     }
-    static var screenWidth: CGFloat {
+    public static var screenWidth: CGFloat {
         return UIScreen.main.bounds.width
     }
-    static var screenScale: CGFloat {
+    public static var screenScale: CGFloat {
         return UIScreen.main.scale
     }
-    static var screenRatio: CGFloat {
+    public static var screenRatio: CGFloat {
         return screenWidth / screenHeight
     }
 }

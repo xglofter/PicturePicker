@@ -30,6 +30,13 @@ end
 }
 ```
 
+可以通过设置来改变式样
+
+```
+PickerConfig.pickerBackgroundColor = UIColor(/*...*/)
+PickerConfig.pickerThemeColor = UIColor(/*...*/)
+```
+
 ![展示效果](./screenshot.gif)
 
 

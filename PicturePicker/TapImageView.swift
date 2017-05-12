@@ -7,20 +7,20 @@
 
 import UIKit
 
-protocol TapImageViewDelegate: NSObjectProtocol {
+public protocol TapImageViewDelegate: NSObjectProtocol {
     func handleImageViewSingleTap(at touchPoint: CGPoint)
     func handleImageViewDoubleTap(at touchPoint: CGPoint)
 }
 
-class TapImageView: UIImageView {
+open class TapImageView: UIImageView {
     weak var delegate: TapImageViewDelegate?
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupTap()
     }
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         setupTap()
     }

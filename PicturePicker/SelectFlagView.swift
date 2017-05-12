@@ -7,9 +7,9 @@
 
 import UIKit
 
-class SelectFlagView: UILabel {
+open class SelectFlagView: UILabel {
 
-    var isSelected: Bool = false {
+    public var isSelected: Bool = false {
         didSet {
             if isSelected == false {
                 self.backgroundColor = UIColor.black.withAlphaComponent(0.5)
@@ -23,7 +23,7 @@ class SelectFlagView: UILabel {
         }
     }
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         
         layer.masksToBounds = true
@@ -38,11 +38,11 @@ class SelectFlagView: UILabel {
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         
         layer.cornerRadius = layer.frame.width * 0.5

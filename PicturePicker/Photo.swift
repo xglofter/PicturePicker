@@ -8,7 +8,7 @@
 import UIKit
 import Photos
 
-protocol PhotoProtocol: NSObjectProtocol {
+public protocol PhotoProtocol: NSObjectProtocol {
     var underlyingImage: UIImage! { get }
     var originImage: UIImage! { get set }
     var index: Int { get set }
@@ -20,12 +20,12 @@ protocol PhotoProtocol: NSObjectProtocol {
 
 // MARK: - Photo
 
-class Photo: NSObject, PhotoProtocol {
+open class Photo: NSObject, PhotoProtocol {
     
-    var underlyingImage: UIImage!
-    var originImage: UIImage!
-    var index: Int = 0
-    var asset: PHAsset!
+    public var underlyingImage: UIImage!
+    public var originImage: UIImage!
+    public var index: Int = 0
+    public var asset: PHAsset!
     
     lazy var manager = PHCachingImageManager()
     
@@ -41,7 +41,7 @@ class Photo: NSObject, PhotoProtocol {
         self.asset = asset
     }
     
-    func fetchUnderlyingImage(completion: @escaping () -> ()) {
+    public func fetchUnderlyingImage(completion: @escaping () -> ()) {
         if underlyingImage != nil {
             return
         }
@@ -54,7 +54,7 @@ class Photo: NSObject, PhotoProtocol {
         }
     }
     
-    func fetchOriginImage(completion: @escaping () -> ()) {
+    public func fetchOriginImage(completion: @escaping () -> ()) {
         if originImage != nil || fetchOriginReqID != nil {
             return
         }

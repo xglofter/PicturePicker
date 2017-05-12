@@ -8,8 +8,8 @@
 import UIKit
 import Photos
 
-class AlbumTableViewCell: UITableViewCell {
-    static let cellIdentity = "AlbumTableViewCell"
+open class AlbumTableViewCell: UITableViewCell {
+    public static let cellIdentity = "AlbumTableViewCell"
     
     fileprivate(set) var asset: PHAsset!
     fileprivate(set) var title: String!
@@ -28,12 +28,12 @@ class AlbumTableViewCell: UITableViewCell {
         setup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
     
-    override func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         updateFrame()
     }
@@ -43,7 +43,7 @@ class AlbumTableViewCell: UITableViewCell {
 
 // MARK: Internal Function
 
-internal extension AlbumTableViewCell {
+extension AlbumTableViewCell {
     func setAlbumPreview(asset: PHAsset?) {
         guard asset != nil else {
             return

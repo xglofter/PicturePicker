@@ -34,7 +34,7 @@ class PagingScrollView: UIScrollView {
 
 // MARK: - Internal Function
 
-internal extension PagingScrollView {
+extension PagingScrollView {
     func updateFrame(with aBounds: CGRect, pageIndex: Int) {
         var frame = aBounds
         frame.origin.x -= sideMargin

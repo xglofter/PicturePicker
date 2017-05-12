@@ -7,15 +7,15 @@
 
 import UIKit
 
-class BrowserViewController: UIViewController {
+open class BrowserViewController: UIViewController {
 
-    var photos: [PhotoProtocol] = [PhotoProtocol]()
-    var numberOfPhotos: Int {
+    public var photos: [PhotoProtocol] = [PhotoProtocol]()
+    public var numberOfPhotos: Int {
         return photos.count
     }
     
-    var initialPageIndex: Int = 0
-    var currentPageIndex: Int = 0
+    fileprivate(set) var initialPageIndex: Int = 0
+    fileprivate(set) var currentPageIndex: Int = 0
     
     fileprivate var toolbar: BrowserToolbar!
     
@@ -45,14 +45,14 @@ class BrowserViewController: UIViewController {
         self.photos = photos
     }
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         configureAppearance()
         configureToolbar()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         reloadData()
         
@@ -63,7 +63,7 @@ class BrowserViewController: UIViewController {
         }
     }
     
-    override func viewWillLayoutSubviews() {
+    override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         isPerformingLayout = true
         
@@ -74,7 +74,7 @@ class BrowserViewController: UIViewController {
         isPerformingLayout = false
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         isViewActive = true
     }
@@ -93,7 +93,7 @@ class BrowserViewController: UIViewController {
 
 // MARK: - Public Founction
 
-extension BrowserViewController {
+public extension BrowserViewController {
     func initializePage(at index: Int) {
         var idx = index
         if index >= numberOfPhotos {
@@ -168,7 +168,11 @@ extension BrowserViewController {
         performLayout()
         view.setNeedsLayout()
     }
-    
+}
+
+// Internal Functions
+
+extension BrowserViewController {
     func prepareNearPhoto() {
         let nextIdx = currentPageIndex + 1
         let prevIdx = currentPageIndex - 1
@@ -185,7 +189,7 @@ extension BrowserViewController {
         return pagingScrollView.pageDisplayed(at: index)
     }
     
-    func getImageFromView(_ sender: UIView) -> UIImage {
+    func pageDisplayed(_ sender: UIView) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(sender.frame.size, true, 0.0)
         sender.layer.render(in: UIGraphicsGetCurrentContext()!)
         let result = UIGraphicsGetImageFromCurrentImageContext()
@@ -215,6 +219,36 @@ extension BrowserViewController {
         } else {
             toolbar.selectFlagView.isSelected = false
         }
+    }
+}
+
+// MARK: -  UIScrollView Delegate
+
+extension BrowserViewController: UIScrollViewDelegate {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard isViewActive else {
+            return
+        }
+        guard !isPerformingLayout else {
+            return
+        }
+        
+        // tile page
+        pagingScrollView.tilePages()
+        
+        // Calculate current page
+        let previousCurrentPage = currentPageIndex
+        let visibleBounds = pagingScrollView.bounds
+        currentPageIndex = min(max(Int(floor(visibleBounds.midX / visibleBounds.width)), 0), numberOfPhotos - 1)
+        
+        if currentPageIndex != previousCurrentPage {
+            toolbar.updateToolbar(currentPageIndex)
+        }
+    }
+    
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        print("scrollViewDidEndScrollingAnimation")
+        isEndAnimationByToolBar = true
     }
 }
 
@@ -318,36 +352,6 @@ private extension BrowserViewController {
             frame.size = CGSize(width: 28, height: 28)
         }
         return frame
-    }
-}
-
-// MARK: -  UIScrollView Delegate
-
-extension BrowserViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard isViewActive else {
-            return
-        }
-        guard !isPerformingLayout else {
-            return
-        }
-        
-        // tile page
-        pagingScrollView.tilePages()
-        
-        // Calculate current page
-        let previousCurrentPage = currentPageIndex
-        let visibleBounds = pagingScrollView.bounds
-        currentPageIndex = min(max(Int(floor(visibleBounds.midX / visibleBounds.width)), 0), numberOfPhotos - 1)
-        
-        if currentPageIndex != previousCurrentPage {
-            toolbar.updateToolbar(currentPageIndex)
-        }
-    }
-    
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        print("scrollViewDidEndScrollingAnimation")
-        isEndAnimationByToolBar = true
     }
 }
 

@@ -7,17 +7,17 @@
 
 import UIKit
 
-class BrowserToolbar: UIToolbar {
+open class BrowserToolbar: UIToolbar {
 
-    var toolCounterLabel: UILabel!
-    var toolCounterButton: UIBarButtonItem!
-    var toolSelectButton: UIBarButtonItem!
+    fileprivate(set) var toolCounterLabel: UILabel!
+    fileprivate(set) var toolCounterButton: UIBarButtonItem!
+    fileprivate(set) var toolSelectButton: UIBarButtonItem!
     
-    var selectFlagView: SelectFlagView!
+    fileprivate(set) var selectFlagView: SelectFlagView!
     
     fileprivate weak var browser: BrowserViewController?
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     

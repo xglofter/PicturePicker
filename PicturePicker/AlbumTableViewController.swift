@@ -8,13 +8,9 @@
 import UIKit
 import Photos
 
-class AlbumTableViewController: UITableViewController {
+open class AlbumTableViewController: UITableViewController {
 
-    deinit {
-        print("deinit AlbumTableViewController")
-    }
-    
-    enum AlbumSection: Int {
+    public enum AlbumSection: Int {
         case allPhotos = 0
         case otherAlbumPhotos
         
@@ -29,7 +25,7 @@ class AlbumTableViewController: UITableViewController {
     
     // MARK: - Lifecycle
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
 
         setup()
@@ -43,7 +39,7 @@ class AlbumTableViewController: UITableViewController {
         tableView.separatorStyle = .none
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if isFirstEnter {
@@ -56,11 +52,11 @@ class AlbumTableViewController: UITableViewController {
     
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override open func numberOfSections(in tableView: UITableView) -> Int {
         return AlbumSection.count
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch AlbumSection(rawValue: section)! {
         case .allPhotos:
             return 1
@@ -69,11 +65,11 @@ class AlbumTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return PickerConfig.albumCellHeight
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumTableViewCell", for: indexPath) as! AlbumTableViewCell
         cell.accessoryType = .disclosureIndicator
@@ -91,7 +87,7 @@ class AlbumTableViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch AlbumSection.init(rawValue: indexPath.section)! {
         case .allPhotos:
@@ -109,7 +105,7 @@ class AlbumTableViewController: UITableViewController {
 // MARK: - PHPhotoLibraryChangeObserver
 
 extension AlbumTableViewController: PHPhotoLibraryChangeObserver {
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
+    public func photoLibraryDidChange(_ changeInstance: PHChange) {
         DispatchQueue.main.sync {
             if let _ = changeInstance.changeDetails(for: allPhotos) {
                 fetchAlbums()

@@ -8,11 +8,11 @@
 import UIKit
 import Photos
 
-class PhotoCollectionViewCell : UICollectionViewCell {
-    static let cellIdentity = "PhotoCollectionViewCell"
+open class PhotoCollectionViewCell : UICollectionViewCell {
+    public static let cellIdentity = "PhotoCollectionViewCell"
     
-    var asset: PHAsset!
-    var flagCallback: (() -> Void)!
+    public var asset: PHAsset!
+    public var flagCallback: (() -> Void)!
     
     fileprivate(set) var imageView: UIImageView!
     fileprivate(set) var imageViewMask: UIView!
@@ -24,12 +24,12 @@ class PhotoCollectionViewCell : UICollectionViewCell {
         setup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
     
-    override func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         updateFrame()
     }
@@ -37,7 +37,7 @@ class PhotoCollectionViewCell : UICollectionViewCell {
 
 // MARK: - Internal Function
 
-internal extension PhotoCollectionViewCell {
+extension PhotoCollectionViewCell {
     func touch(with number: Int) {
         self.flagView.text = String(format: "%d", number)
         if self.flagView.isSelected {

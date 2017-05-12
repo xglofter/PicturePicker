@@ -7,15 +7,15 @@
 
 import UIKit
 
-protocol TapViewDelegate: NSObjectProtocol {
+public protocol TapViewDelegate: NSObjectProtocol {
     func handleTapViewSingleTap(from view: UIView, touch: UITouch)
     func handleTapViewDoubleTap(from view: UIView, touch: UITouch)
 }
 
-class TapView: UIView {
+open class TapView: UIView {
     weak var delegate: TapViewDelegate?
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         defer {
             _ = next

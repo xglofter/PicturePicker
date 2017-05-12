@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol PhotoToolbarDelegate: NSObjectProtocol {
+public protocol PhotoToolbarDelegate: NSObjectProtocol {
     func touchPreviewAction()
     func touchFinishAction()
 }
 
-class PhotoToolbar: UIView {
+open class PhotoToolbar: UIView {
 
     fileprivate(set) var topLineView: UIView!
     fileprivate(set) var previewButton: UIButton!
@@ -28,7 +28,7 @@ class PhotoToolbar: UIView {
         setup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
@@ -39,7 +39,7 @@ class PhotoToolbar: UIView {
         updateContentLabelFrame()
     }
     
-    override func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         updateFrame()
     }

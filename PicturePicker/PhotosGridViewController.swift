@@ -8,18 +8,18 @@
 import UIKit
 import Photos
 
-class PhotosGridViewController: UIViewController {
+open class PhotosGridViewController: UIViewController {
     
-    var photoAssets: PHFetchResult<PHAsset>!
+    public var photoAssets: PHFetchResult<PHAsset>!
     
-    var collectionView: UICollectionView!
-    var toolBar: PhotoToolbar!
+    public var collectionView: UICollectionView!
+    public var toolBar: PhotoToolbar!
     
-    let numberOneRow: CGFloat = 4  // 每行放置4个Cell, TODO：改为固定值，或者旋转以后可以调整
-    let spaceOnCell: CGFloat = 4
+    public let numberOneRow: CGFloat = 4  // 每行放置4个Cell, TODO：改为固定值，或者旋转以后可以调整
+    public let spaceOnCell: CGFloat = 4
     
     /// 带缓存的图片管理对象
-    var imageManager: PHCachingImageManager!
+    fileprivate var imageManager: PHCachingImageManager!
     
     fileprivate var toolBarIsHidden: Bool = true
     
@@ -35,11 +35,11 @@ class PhotosGridViewController: UIViewController {
         self.photoAssets = photoAssets
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
     
         setup()
@@ -50,28 +50,24 @@ class PhotosGridViewController: UIViewController {
         self.resetCachedAssets()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         checkBarShouldHidden()
         changeVisibleFlag()
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         updateSubviewsFrame(to: size)
     }
 }
 
 extension PhotosGridViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.photoAssets.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let identify = PhotoCollectionViewCell.cellIdentity
         let cell = self.collectionView!.dequeueReusableCell(withReuseIdentifier: identify, for: indexPath) as! PhotoCollectionViewCell
@@ -127,7 +123,7 @@ extension PhotosGridViewController: UICollectionViewDataSource {
 }
 
 extension PhotosGridViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         print("======= touch at ===========")
         let myAsset = self.photoAssets[indexPath.row]
@@ -141,11 +137,11 @@ extension PhotosGridViewController: UICollectionViewDelegate {
 // MARK: - PhotoToolbarDelegate 
 
 extension PhotosGridViewController: PhotoToolbarDelegate {
-    func touchPreviewAction() {
+    public func touchPreviewAction() {
         presentBrowser(index: 0)
     }
     
-    func touchFinishAction() {
+    public func touchFinishAction() {
         self.dismiss(animated: true, completion: {
             PickerManager.shared.endChoose(isFinish: true)
         })
