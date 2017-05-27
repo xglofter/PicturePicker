@@ -54,7 +54,6 @@ public class PickerManager: NSObject {
         let library: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
         if library == .notDetermined {
             PHPhotoLibrary.requestAuthorization { (status) in
-                print("permission", status.rawValue)
                 if status == PHAuthorizationStatus.authorized {
                     DispatchQueue.main.async { [weak self] _ in
                         self?.presentPicker()
@@ -139,9 +138,17 @@ private extension PickerManager {
     }
     
     func presentPicker() {
-        let albumVC = AlbumTableViewController()
+        
+        let allPhotos = fetchAllPhotos()!
+        
+        let albumVC = AlbumTableViewController(with: allPhotos)
         let naviVC = UINavigationController(rootViewController: albumVC)
-        topMostViewController()?.present(naviVC, animated: false, completion: nil)
+        
+        let gridVC = PhotosGridViewController(with: allPhotos)
+        gridVC.title = "所有照片"
+        naviVC.viewControllers.append(gridVC)
+        
+        topMostViewController()?.present(naviVC, animated: true, completion: nil)
     }
     
     func topMostViewController() -> UIViewController? {
@@ -150,6 +157,13 @@ private extension PickerManager {
             topController = topController?.presentedViewController
         }
         return topController
+    }
+    
+    func fetchAllPhotos() -> PHFetchResult<PHAsset>! {
+        let allPhotoOptions = PHFetchOptions()
+        allPhotoOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        allPhotoOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        return PHAsset.fetchAssets(with: allPhotoOptions)
     }
 }
 

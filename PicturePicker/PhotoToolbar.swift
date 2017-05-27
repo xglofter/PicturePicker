@@ -48,7 +48,7 @@ open class PhotoToolbar: UIView {
 
 private extension PhotoToolbar {
     func setup() {
-        self.backgroundColor = PickerConfig.pickerBackgroundColor
+        self.backgroundColor = PickerConfig.pickerToolbarColor
         
         topLineView = UIView()
         topLineView.backgroundColor = UIColor.lightGray
@@ -74,8 +74,8 @@ private extension PhotoToolbar {
         
         contentLabel = UILabel()
         contentLabel.textAlignment = .center
-        contentLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        contentLabel.textColor = PickerConfig.pickerThemeColor
+        contentLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        contentLabel.textColor = PickerConfig.pickerToolbarLabelColor
         self.addSubview(contentLabel)
     }
     
@@ -83,10 +83,10 @@ private extension PhotoToolbar {
         topLineView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 0.5)
         
         previewButton.frame.origin = CGPoint(x: 20, y: (bounds.height - 30)/2)
-        previewButton.frame.size = CGSize(width: 50, height: 30)
+        previewButton.frame.size = CGSize(width: 80, height: 30)
         
-        finishButton.frame.origin = CGPoint(x: bounds.width - 20 - 50, y: (bounds.height - 30)/2)
-        finishButton.frame.size = CGSize(width: 50, height: 30)
+        finishButton.frame.origin = CGPoint(x: bounds.width - 20 - 80, y: (bounds.height - 30)/2)
+        finishButton.frame.size = CGSize(width: 80, height: 30)
         
         updateContentLabelFrame()
     }

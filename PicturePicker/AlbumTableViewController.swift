@@ -25,6 +25,16 @@ open class AlbumTableViewController: UITableViewController {
     
     // MARK: - Lifecycle
     
+    public init(with allPhotos: PHFetchResult<PHAsset>) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.allPhotos = allPhotos
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,16 +49,16 @@ open class AlbumTableViewController: UITableViewController {
         tableView.separatorStyle = .none
     }
     
-    override open func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if isFirstEnter {
-            isFirstEnter = false
-            let gridVC = PhotosGridViewController(with: allPhotos)
-            gridVC.title = "所有照片"
-            self.navigationController?.pushViewController(gridVC, animated: true)
-        }
-    }
+//    override open func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        
+//        if isFirstEnter {
+//            isFirstEnter = false
+//            let gridVC = PhotosGridViewController(with: allPhotos)
+//            gridVC.title = "所有照片"
+//            self.navigationController?.pushViewController(gridVC, animated: true)
+//        }
+//    }
     
     // MARK: - Table view data source
 
@@ -136,10 +146,10 @@ private extension AlbumTableViewController {
     
     func fetchAlbums() {
         
-        let allPhotoOptions = PHFetchOptions()
-        allPhotoOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        allPhotoOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-        allPhotos = PHAsset.fetchAssets(with: allPhotoOptions)
+//        let allPhotoOptions = PHFetchOptions()
+//        allPhotoOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+//        allPhotoOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+//        allPhotos = PHAsset.fetchAssets(with: allPhotoOptions)
         
         let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: nil)
         let userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)

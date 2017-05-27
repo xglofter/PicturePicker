@@ -26,7 +26,6 @@ open class PhotosGridViewController: UIViewController {
     // MARK: - Lifecycle
     
     deinit {
-        print("deinit PhotosGridViewController")
         self.resetCachedAssets()
     }
     
@@ -124,12 +123,6 @@ extension PhotosGridViewController: UICollectionViewDataSource {
 
 extension PhotosGridViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        print("======= touch at ===========")
-        let myAsset = self.photoAssets[indexPath.row]
-        print(myAsset.description)
-        print("============================")
-        
         presentBrowser(index: indexPath.row)
     }
 }
