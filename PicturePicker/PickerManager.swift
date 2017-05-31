@@ -16,7 +16,7 @@ public class PickerManager: NSObject {
     fileprivate(set) var callbackAfterFinish: ChoosePhotosHandle?
     fileprivate(set) var maxPhotos: Int = 0
     fileprivate(set) lazy var choosedAssets = [PHAsset]()
-    fileprivate(set) lazy var fetchOutputImages = [UIImage]()
+    fileprivate(set) var fetchOutputImages: [UIImage]!
     
     /// 获取当前已选择图片的数目
     public var currentNumber: Int {
@@ -75,9 +75,11 @@ public class PickerManager: NSObject {
     /// - Parameter isFinish: 是否是完成了，false表示取消
     public func endChoose(isFinish: Bool) {
         if isFinish {
+            fetchOutputImages = [UIImage](repeating: UIImage(), count: choosedAssets.count)
             for asset in choosedAssets {
                 PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .default, options: nil, resultHandler: { (img, _) in
-                    self.callbackAfterFetch(img: img!)
+                    let tempIdx = self.choosedAssets.index(of: asset)!
+                    self.callbackAfterFetch(img: img!, index: tempIdx)
                 })
             }
         } else {
@@ -123,16 +125,20 @@ public class PickerManager: NSObject {
         choosedAssets.removeAll()
         maxPhotos = 0
         callbackAfterFinish = nil
-        fetchOutputImages.removeAll()
+        fetchOutputImages?.removeAll()
+        PickerManager.fetchImageNumber = 0
     }
 }
 
 // MARK: - Private Function
 
 private extension PickerManager {
-    func callbackAfterFetch(img: UIImage) {
-        fetchOutputImages.append(img)
-        if fetchOutputImages.count == choosedAssets.count {
+    static var fetchImageNumber = 0
+    func callbackAfterFetch(img: UIImage, index: Int) {
+        fetchOutputImages[index] = img
+
+        PickerManager.fetchImageNumber += 1
+        if PickerManager.fetchImageNumber == choosedAssets.count {
             callbackAfterFinish?(fetchOutputImages)
         }
     }
